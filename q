@@ -71,7 +71,7 @@ function PrintColor() {
 }
 
 
-updateScript() {
+function updateScript() {
     local url="https://raw.githubusercontent.com/Skipperia/q/main/q"
     
     local script_path=$(realpath "$0")
@@ -87,7 +87,7 @@ updateScript() {
 }
 
 
-printLogicalVolumeSpace() {
+function printLogicalVolumeSpace() {
 # Logical Volume Path
 lv_path="/dev/mapper/vg_home-lv_home"
 
