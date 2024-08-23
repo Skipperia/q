@@ -1,5 +1,5 @@
 #!/bin/bash
-qver="1.0.2"
+qver="1.0.3"
 
 
 RED='\033[0;31m'
@@ -89,31 +89,22 @@ function updateScript() {
 
 
 function printLogicalVolumeSpace() {
-# Logical Volume Path
-lv_path="/dev/mapper/vg_home-lv_home"
 
-# Fetch Block Count and Free Block Count using tune2fs
-block_count=$(sudo tune2fs -l $lv_path | grep "Block count" | awk '{print $3}')
-free_blocks=$(sudo tune2fs -l $lv_path | grep "Free blocks" | awk '{print $3}')
+vg_home_info=$(df -h | grep 'vg_home-lv_home')
 
-# Block size in KB (assuming it's 4 KB for ext4, change if different)
-block_size_kb=4
 
-# Calculate Total, Used, and Free Space in KB
-total_space_kb=$(($block_count * $block_size_kb))
-free_space_kb=$(($free_blocks * $block_size_kb))
-used_space_kb=$(($total_space_kb - $free_space_kb))
+size=$(echo $vg_home_info | awk '{print $2}')
+used=$(echo $vg_home_info | awk '{print $3}')
+available=$(echo $vg_home_info | awk '{print $4}')
+use_percent=$(echo $vg_home_info | awk '{print $5}')
 
-# Convert KB to GB
-total_space_gb=$(echo "scale=2; $total_space_kb / 1024 / 1024" | bc)
-free_space_gb=$(echo "scale=2; $free_space_kb / 1024 / 1024" | bc)
-used_space_gb=$(echo "scale=2; $used_space_kb / 1024 / 1024" | bc)
 
-# Print the results
-echo "Logical Volume: $lv_path"
-echo "Total Space: $total_space_gb GB"
-echo "Used Space: $used_space_gb GB"
-echo "Free Space: $free_space_gb GB"
+echo "Volume: vg_home-lv_home"
+echo "------------------------------------"
+echo "Total Size : $size"
+echo "Used Space : $used"
+echo "Available  : $available"
+echo "Usage (%)  : $use_percent"
 
 }
 
