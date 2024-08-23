@@ -87,6 +87,36 @@ updateScript() {
 }
 
 
+printLogicalVolumeSpace() {
+# Logical Volume Path
+lv_path="/dev/mapper/vg_home-lv_home"
+
+# Fetch Block Count and Free Block Count using tune2fs
+block_count=$(sudo tune2fs -l $lv_path | grep "Block count" | awk '{print $3}')
+free_blocks=$(sudo tune2fs -l $lv_path | grep "Free blocks" | awk '{print $3}')
+
+# Block size in KB (assuming it's 4 KB for ext4, change if different)
+block_size_kb=4
+
+# Calculate Total, Used, and Free Space in KB
+total_space_kb=$(($block_count * $block_size_kb))
+free_space_kb=$(($free_blocks * $block_size_kb))
+used_space_kb=$(($total_space_kb - $free_space_kb))
+
+# Convert KB to GB
+total_space_gb=$(echo "scale=2; $total_space_kb / 1024 / 1024" | bc)
+free_space_gb=$(echo "scale=2; $free_space_kb / 1024 / 1024" | bc)
+used_space_gb=$(echo "scale=2; $used_space_kb / 1024 / 1024" | bc)
+
+# Print the results
+echo "Logical Volume: $lv_path"
+echo "Total Space: $total_space_gb GB"
+echo "Used Space: $used_space_gb GB"
+echo "Free Space: $free_space_gb GB"
+
+}
+
+
 
 
 if [[ $# -eq 0 || "$1" = "help" || "$1" = "--help" ]] ; then
@@ -102,6 +132,9 @@ case $1 in
     ;;
     a)
         PrintColor yellow printing yellow text
+    ;;
+    space)
+ 	printLogicalVolumeSpace
     ;;
     update)
 	updateScript
