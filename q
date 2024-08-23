@@ -1,5 +1,5 @@
 #!/bin/bash
-qver="1.0.1"
+qver="1.0.2"
 
 
 RED='\033[0;31m'
@@ -15,8 +15,9 @@ printHelp() {
 echo -e "USAGE: q [command] [...args]"
 
 commands=(
-    "=== -> Configuration"
-    "update -> Updates script to the latest version"	
+    "=== -> Configuration and info"
+    "update -> Updates script to the latest version"
+    "space -> Show the plex server currently used, total and free space"
 
     "=== -> Docker Shortcuts"
     "ps -> Print currently running containers"
