@@ -100,6 +100,9 @@ case $1 in
     a)
         PrintColor yellow printing yellow text
     ;;
+    update)
+	updateScript
+    ;;
     *)
     echo "Unknown option selected - $1"
         exit 2
