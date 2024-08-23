@@ -1,5 +1,5 @@
 #!/bin/bash
-qver="1.0.3"
+qver="1.0.4"
 
 
 RED='\033[0;31m'
@@ -92,14 +92,13 @@ function printLogicalVolumeSpace() {
 
 vg_home_info=$(df -h | grep 'vg_home-lv_home')
 
-
 size=$(echo $vg_home_info | awk '{print $2}')
 used=$(echo $vg_home_info | awk '{print $3}')
 available=$(echo $vg_home_info | awk '{print $4}')
 use_percent=$(echo $vg_home_info | awk '{print $5}')
+mount_path=$(echo $vg_home_info | awk '{print $6}')
 
-
-echo "Volume: vg_home-lv_home"
+echo "Volume: vg_home-lv_home mount: $mount_path"
 echo "------------------------------------"
 echo "Total Size : $size"
 echo "Used Space : $used"
