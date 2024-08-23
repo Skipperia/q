@@ -1,5 +1,5 @@
 #!/bin/bash
-qver="1.0.0"
+qver="1.0.1"
 
 
 RED='\033[0;31m'
@@ -15,6 +15,9 @@ printHelp() {
 echo -e "USAGE: q [command] [...args]"
 
 commands=(
+    "=== -> Configuration"
+    "update -> Updates script to the latest version"	
+
     "=== -> Docker Shortcuts"
     "ps -> Print currently running containers"
 
@@ -77,7 +80,7 @@ updateScript() {
     
     if [[ $? -eq 0 ]]; then
         chmod +x "$script_path"
-        echo -e "$GREEN Script updated successfully!$NC"
+        echo -e "$GREEN Script updated successfully to version: $qver!$NC"
     else
         echo -e "$RED Failed to update the script. Please check your internet connection.$NC"
     fi
