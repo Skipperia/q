@@ -68,6 +68,23 @@ function PrintColor() {
 }
 
 
+updateScript() {
+    local url="https://raw.githubusercontent.com/Skipperia/q/main/q"
+    
+    local script_path=$(realpath "$0")
+    
+    curl -s -o "$script_path" "$url"
+    
+    if [[ $? -eq 0 ]]; then
+        chmod +x "$script_path"
+        echo -e "$GREEN Script updated successfully!$NC"
+    else
+        echo -e "$RED Failed to update the script. Please check your internet connection.$NC"
+    fi
+}
+
+
+
 
 if [[ $# -eq 0 || "$1" = "help" || "$1" = "--help" ]] ; then
 
