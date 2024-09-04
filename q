@@ -1,5 +1,5 @@
 #!/bin/bash
-qver="1.0.4"
+qver="1.0.5"
 
 
 RED='\033[0;31m'
@@ -126,6 +126,12 @@ case $1 in
     ;;
     space)
  	printLogicalVolumeSpace
+    ;;
+    down) 
+	docker-compose -f /mnt/home/docker-configs/plex-qbit/docker-compose.yml down
+    ;;
+    up)
+	docker-compose -f /mnt/home/docker-configs/plex-qbit/docker-compose.yml up -d
     ;;
     update)
 	updateScript
