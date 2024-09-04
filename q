@@ -1,5 +1,5 @@
 #!/bin/bash
-qver="1.0.5"
+qver="1.0.6"
 
 
 RED='\033[0;31m'
@@ -18,10 +18,13 @@ commands=(
     "=== -> Configuration and info"
     "update -> Updates script to the latest version"
     "space -> Show the plex server currently used, total and free space"
+    "ms -> Displays machine stats (hdd+ core temps)"
 
     "=== -> Docker Shortcuts"
     "ps -> Print currently running containers"
-
+    "down -> Kills plex+qbit"
+    "up -> Starts up plex+qbit"
+    
     "=== -> 2nd Category"
     "a -> print some yellow text :)"
     )
@@ -47,7 +50,25 @@ printHeader() {
 
 }
 
+function machineStats(){
+	drives=("/dev/sda" "/dev/sdb" "/dev/sdc" "/dev/sdd")
+	
+	for drive in "${drives[@]}"; do
+	    temp=$(sudo smartctl -A "$drive" | grep -i "temperature" | awk '{print $10 "°C"}')
+	    echo "$drive - $temp"
+	done
+	
+	if ! command -v sensors &> /dev/null; then
+	    echo "lm-sensors is not installed. Please install it using your package manager."
+	    exit 1
+	fi
+	
+	echo "CPU Core Temperatures:"
+	sensors | grep -i 'core' | while IFS= read -r line; do
+	    echo "$line"
+	done
 
+}
 
 function PrintColor() {
 
@@ -132,6 +153,9 @@ case $1 in
     ;;
     up)
 	docker-compose -f /mnt/home/docker-configs/plex-qbit/docker-compose.yml up -d
+    ;;
+    ms)
+	machineStats
     ;;
     update)
 	updateScript
