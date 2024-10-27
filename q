@@ -1,5 +1,5 @@
 #!/bin/bash
-qver="1.0.6"
+qver="1.0.7"
 
 
 RED='\033[0;31m'
@@ -24,6 +24,7 @@ commands=(
     "ps -> Print currently running containers"
     "down -> Kills plex+qbit"
     "up -> Starts up plex+qbit"
+    "restart -> Run docker-compose restart for plex+qbit"
     
     "=== -> 2nd Category"
     "a -> print some yellow text :)"
@@ -153,6 +154,9 @@ case $1 in
     ;;
     up)
 	docker-compose -f /mnt/home/docker-configs/plex-qbit/docker-compose.yml up -d
+    ;;
+    restart)
+    docker-compose -f /mnt/home/docker-configs/plex-qbit/docker-compose.yml restart
     ;;
     ms)
 	machineStats
