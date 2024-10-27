@@ -25,7 +25,7 @@ commands=(
     "down -> Kills plex+qbit"
     "up -> Starts up plex+qbit"
     "restart -> Run docker-compose restart for plex+qbit"
-    
+
     "=== -> 2nd Category"
     "a -> print some yellow text :)"
     )
@@ -149,7 +149,7 @@ case $1 in
     space)
  	printLogicalVolumeSpace
     ;;
-    down) 
+    down)
 	docker-compose -f /mnt/home/docker-configs/plex-qbit/docker-compose.yml down
     ;;
     up)
