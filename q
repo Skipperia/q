@@ -95,7 +95,7 @@ function PrintColor() {
 
 
 function updateScript() {
-    local url="https://raw.githubusercontent.com/Skipperia/q/main/q"
+    local url="https://raw.githubusercontent.com/Skipperia/q/refs/heads/main/q"
     
     local script_path=$(realpath "$0")
     
